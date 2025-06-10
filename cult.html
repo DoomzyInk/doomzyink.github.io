@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Join the Doomzy Ink Cult - Confess your sins and gain access to exclusive content and community.">
+  <title>Join the Cult | Doomzy Ink</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  
+  <style>
+    .cult-hero {
+      background: linear-gradient(rgba(13, 11, 7, 0.85), rgba(13, 11, 7, 0.9)), url('assets/images/cult-bg.jpg') no-repeat center center/cover;
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cult-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .cult-form {
+      background: #1a1712;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid #2a2620;
+      margin-top: -50px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      font-family: 'Cinzel', serif;
+      color: var(--secondary-color);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.9rem;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 15px;
+      background: #0d0b07;
+      border: 1px solid #2a2620;
+      border-radius: 5px;
+      color: var(--light-text);
+      font-family: 'IM Fell English', serif;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 2px rgba(255, 69, 0, 0.2);
+    }
+    
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .btn-submit {
+      width: 100%;
+      padding: 18px;
+      font-size: 1.1rem;
+      background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+      border: none;
+      border-radius: 5px;
+      color: var(--light-text);
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .btn-submit::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+      z-index: -1;
+    }
+    
+    .btn-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .btn-submit:hover::before {
+      left: 100%;
+    }
+    
+    .cult-benefits {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 60px;
+    }
+    
+    .benefit-card {
+      background: #1a1712;
+      border-radius: 10px;
+      padding: 30px;
+      text-align: center;
+      border: 1px solid #2a2620;
+      transition: var(--transition);
+    }
+    
+    .benefit-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+    
+    .benefit-icon {
+      font-size: 2.5rem;
+      color: var(--accent-color);
+      margin-bottom: 20px;
+    }
+    
+    .benefit-card h3 {
+      color: var(--secondary-color);
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+    
+    @media (max-width: 768px) {
+      .cult-form {
+        padding: 30px 20px;
+        margin: -30px 15px 0;
+      }
+      
+      .cult-hero {
+        min-height: 50vh;
+        padding: 100px 0 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <main-header></main-header>
+
+  <!-- Cult Hero -->
+  <section class="cult-hero">
+    <div class="cult-container">
+      <h1>Join the Cult</h1>
+      <p class="hero-subtitle">Confess your sins and gain access to exclusive content and community.</p>
+    </div>
+  </section>
+
+  <!-- Confession Form -->
+  <section class="section">
+    <div class="container">
+      <div class="cult-form">
+        <h2 class="section-title text-center">Confess Your <span>Sins</span></h2>
+        <p class="text-center" style="margin-bottom: 30px;">Complete the ritual to gain access to our secret society.</p>
+        
+        <form id="confession-form" class="cult-form-inner">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="confession">Your Confession</label>
+            <textarea id="confession" class="form-control" placeholder="Confess your darkest secrets and desires..." required></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="ritual">How did you find us?</label>
+            <select id="ritual" class="form-control" required>
+              <option value="" disabled selected>Select an option</option>
+              <option value="summoning">Ancient Summoning Ritual</option>
+              <option value="dream">A Dream from Beyond</option>
+              <option value="fortune">Fortune Teller's Prophecy</option>
+              <option value="other">Other (Specify in confession)</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label class="checkbox-container">
+              <input type="checkbox" id="terms" required>
+              <span class="checkmark"></span>
+              I agree to the <a href="/terms" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy</a>
+            </label>
+          </div>
+          
+          <button type="submit" class="btn-submit">
+            <span class="button-text">Complete the Ritual</span>
+            <i class="fas fa-skull button-icon"></i>
+          </button>
+        </form>
+      </div>
+      
+      <div class="cult-benefits">
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="fas fa-star"></i>
+          </div>
+          <h3>Exclusive Content</h3>
+          <p>Access to members-only designs, early product releases, and secret drops.</p>
+        </div>
+        
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Private Community</h3>
+          <p>Join our secret society of like-minded individuals in our members-only Discord.</p>
+        </div>
+        
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="fas fa-gem"></i>
+          </div>
+          <h3>VIP Perks</h3>
+          <p>Enjoy special discounts, free shipping, and personalized experiences.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <main-footer></main-footer>
+
+  <!-- JavaScript -->
+  <script src="assets/js/components/header.js"></script>
+  <script src="assets/js/components/footer.js"></script>
+  <script src="assets/js/main.js"></script>
+  
+  <script>
+    // Form submission handling
+    document.getElementById('confession-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const confession = document.getElementById('confession').value;
+      
+      // In a real application, you would send this data to a server
+      console.log('Confession submitted:', { name, email, confession });
+      
+      // Show success message
+      alert('Your confession has been received. Welcome to the cult, ' + name + '!');
+      
+      // Reset form
+      this.reset();
+      
+      // Scroll to top
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+</html>

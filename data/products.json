@@ -1,0 +1,46 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Creepy But Interesting",
+      "price": 29.99,
+      "image": "assets/images/creepy-shirt.jpg",
+      "alt": "Creepy But Interesting T-Shirt Design"
+    },
+    {
+      "id": 2,
+      "name": "Try Milk",
+      "price": 34.99,
+      "image": "assets/images/try-milk.jpg",
+      "alt": "Try Milk Hoodie Design"
+    },
+    {
+      "id": 3,
+      "name": "You're a Bitch (Allegedly)",
+      "price": 29.99,
+      "image": "assets/images/bitch-shirt.jpg",
+      "alt": "You're a Bitch T-Shirt Design"
+    },
+    {
+      "id": 4,
+      "name": "Spiral Cult",
+      "price": 39.99,
+      "image": "assets/images/spiral-cult.jpg",
+      "alt": "Spiral Cult Long Sleeve"
+    },
+    {
+      "id": 5,
+      "name": "Doomzy Logo Tee",
+      "price": 27.99,
+      "image": "assets/images/logo-tee.jpg",
+      "alt": "Doomzy Ink Logo T-Shirt"
+    },
+    {
+      "id": 6,
+      "name": "Mentally Unwell Hoodie",
+      "price": 54.99,
+      "image": "assets/images/mentally-unwell-hoodie.jpg",
+      "alt": "Mentally Unwell Hoodie"
+    }
+  ]
+}

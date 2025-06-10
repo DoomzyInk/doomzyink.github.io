@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Codex - Doomzy Ink</title>
+    <meta name="description" content="Explore the forbidden knowledge and hidden lore of Doomzy Ink. Discover the dark history and secrets behind our ink.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    
+    <style>
+        /* Lore Page Specific Styles */
+        .lore-page {
+            padding-top: 80px;
+            background: var(--bg-darker);
+        }
+        
+        .lore-hero {
+            background: linear-gradient(rgba(10, 9, 6, 0.9), rgba(10, 9, 6, 0.95)), 
+                        url('../assets/images/hero-bg.jpg') no-repeat center center/cover;
+            padding: 8rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .lore-hero h1 {
+            font-family: 'UnifrakturMaguntia', cursive;
+            font-size: 4.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 15px var(--accent-glow);
+            animation: pulse 4s infinite;
+        }
+        
+        .lore-hero p {
+            font-family: 'IM Fell English', serif;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+        
+        .lore-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        .lore-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .lore-card {
+            background: rgba(20, 18, 12, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .lore-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .lore-card-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .lore-card-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.9));
+        }
+        
+        .lore-card-category {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent);
+            color: var(--bg-darker);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 1;
+        }
+        
+        .lore-card-content {
+            padding: 1.5rem;
+        }
+        
+        .lore-card h3 {
+            font-family: 'IM Fell English SC', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .lore-card-date {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        
+        .lore-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .lore-card-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        
+        .lore-card-link i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .lore-card-link:hover {
+            color: var(--text-primary);
+        }
+        
+        .lore-card-link:hover i {
+            transform: translateX(5px);
+        }
+        
+        .lore-pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 4rem;
+            gap: 1rem;
+        }
+        
+        .page-btn {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .page-btn:hover,
+        .page-btn.active {
+            background: var(--accent);
+            color: var(--bg-darker);
+        }
+        
+        .page-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Animation for lore cards */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .lore-card {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .lore-card:nth-child(1) { animation-delay: 0.1s; }
+        .lore-card:nth-child(2) { animation-delay: 0.2s; }
+        .lore-card:nth-child(3) { animation-delay: 0.3s; }
+        .lore-card:nth-child(4) { animation-delay: 0.4s; }
+        .lore-card:nth-child(5) { animation-delay: 0.5s; }
+        .lore-card:nth-child(6) { animation-delay: 0.6s; }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .lore-hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .lore-hero p {
+                font-size: 1.2rem;
+            }
+            
+            .lore-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .lore-hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="lore-page">
+    <!-- Header Component -->
+    <main-header></main-header>
+
+    <!-- Lore Hero Section -->
+    <section class="lore-hero">
+        <div class="container">
+            <h1>The Digital Codex</h1>
+            <p>Unveil the hidden knowledge and forbidden wisdom of the Doomzy Ink legacy. Here lie the secrets of our craft, the history of our ink, and the dark prophecies that guide our hands.</p>
+        </div>
+    </section>
+
+    <!-- Lore Content -->
+    <div class="lore-container">
+        <!-- Lore Grid -->
+        <div class="lore-grid">
+            <!-- Lore Card 1 -->
+            <div class="lore-card" data-category="history">
+                <div class="lore-card-image" style="background-image: url('https://source.unsplash.com/random/600x400/?ancient,manuscript');">
+                    <span class="lore-card-category">History</span>
+                </div>
+                <div class="lore-card-content">
+                    <h3>The Origins of Doomzy Ink</h3>
+                    <div class="lore-card-date">March 15, 2023</div>
+                    <p>Discover how the first drop of forbidden ink was mixed under a blood moon, giving birth to our dark art. The ancient texts speak of a pact made in shadows...</p>
+                    <a href="#" class="lore-card-link">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Lore Card 2 -->
+            <div class="lore-card" data-category="rituals">
+                <div class="lore-card-image" style="background-image: url('https://source.unsplash.com/random/600x400/?ritual,candles');">
+                    <span class="lore-card-category">Rituals</span>
+                </div>
+                <div class="lore-card-content">
+                    <h3>Moonlit Ink Consecration</h3>
+                    <div class="lore-card-date">February 28, 2023</div>
+                    <p>Every full moon, we gather to consecrate our inks with ancient incantations. This sacred ritual ensures the potency and power of every drop that touches your skin...</p>
+                    <a href="#" class="lore-card-link">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Lore Card 3 -->
+            <div class="lore-card" data-category="prophecies">
+                <div class="lore-card-image" style="background-image: url('https://source.unsplash.com/random/600x400/?prophecy,scroll');">
+                    <span class="lore-card-category">Prophecies</span>
+                </div>
+                <div class="lore-card-content">
+                    <h3>The Seventh Sign</h3>
+                    <div class="lore-card-date">January 22, 2023</div>
+                    <p>When the seventh sign appears in the sky, the chosen ones will bear the mark of the eternal. The ancient prophecy foretells a time when ink will flow like rivers of destiny...</p>
+                    <a href="#" class="lore-card-link">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Lore Card 4 -->
+            <div class="lore-card" data-category="ink-recipes">
+                <div class="lore-card-image" style="background-image: url('https://source.unsplash.com/random/600x400/?ink,potions');">
+                    <span class="lore-card-category">Ink Recipes</span>
+                </div>
+                <div class="lore-card-content">
+                    <h3>Midnight Black Elixir</h3>
+                    <div class="lore-card-date">December 15, 2022</div>
+                    <p>Our signature black ink contains thirteen secret ingredients, each harvested under specific lunar phases. The final component is known only to the Master Inker...</p>
+                    <a href="#" class="lore-card-link">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Lore Card 5 -->
+            <div class="lore-card" data-category="history">
+                <div class="lore-card-image" style="background-image: url('https://source.unsplash.com/random/600x400/?ancient,temple');">
+                    <span class="lore-card-category">History</span>
+                </div>
+                <div class="lore-card-content">
+                    <h3>The Lost Temple of Ink</h3>
+                    <div class="lore-card-date">November 3, 2022</div>
+                    <p>Deep in the forgotten valleys lies a temple where the walls bleed ink. The few who have returned speak of visions and voices that guide the needle's path...</p>
+                    <a href="#" class="lore-card-link">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Lore Card 6 -->
+            <div class="lore-card" data-category="rituals">
+                <div class="lore-card-image" style="background-image: url('https://source.unsplash.com/random/600x400/?ritual,fire');">
+                    <span class="lore-card-category">Rituals</span>
+                </div>
+                <div class="lore-card-content">
+                    <h3>Blood Moon Tattooing</h3>
+                    <div class="lore-card-date">October 18, 2022</div>
+                    <p>Once every seven years, during the blood moon, we open our doors to those seeking the most powerful tattoos. These marks are said to carry the essence of the moon's power...</p>
+                    <a href="#" class="lore-card-link">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="lore-pagination">
+            <button class="page-btn disabled"><i class="fas fa-chevron-left"></i></button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <!-- Footer Component -->
+    <main-footer></main-footer>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/components/header.js"></script>
+    <script src="assets/js/components/footer.js"></script>
+    
+    <script>
+        // Lore Page JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Category filter functionality
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const loreCards = document.querySelectorAll('.lore-card');
+            
+            if (categoryBtns.length > 0) {
+                categoryBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        // Remove active class from all buttons
+                        categoryBtns.forEach(b => b.classList.remove('active'));
+                        // Add active class to clicked button
+                        this.classList.add('active');
+                        
+                        const category = this.getAttribute('data-category');
+                        
+                        // Filter cards
+                        loreCards.forEach(card => {
+                            if (category === 'all' || card.getAttribute('data-category') === category) {
+                                card.style.display = 'block';
+                                // Re-trigger animation
+                                card.style.animation = 'none';
+                                setTimeout(() => {
+                                    card.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                                }, 10);
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                    });
+                });
+            }
+
+
+            // Search functionality
+            const searchInput = document.querySelector('.lore-search input');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    
+                    loreCards.forEach(card => {
+                        const title = card.querySelector('h3').textContent.toLowerCase();
+                        const content = card.querySelector('p').textContent.toLowerCase();
+                        
+                        if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            }
+
+
+            // Pagination functionality
+            const pageBtns = document.querySelectorAll('.page-btn');
+            if (pageBtns.length > 0) {
+                pageBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        if (this.classList.contains('disabled')) return;
+                        
+                        // Remove active class from all buttons
+                        pageBtns.forEach(b => b.classList.remove('active'));
+                        // Add active class to clicked button
+                        this.classList.add('active');
+                        
+                        // In a real implementation, this would load the next page of content
+                        console.log('Loading page:', this.textContent.trim());
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
