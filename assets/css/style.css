@@ -1,0 +1,44 @@
+
+body {
+  background: #0d0b07;
+  color: #f0d7a1;
+  font-family: 'Georgia', serif;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background: #1a1712;
+  padding: 1rem;
+  text-align: center;
+}
+header nav a {
+  color: #f0d7a1;
+  margin: 0 1rem;
+  text-decoration: none;
+}
+.hero {
+  text-align: center;
+  padding: 2rem;
+}
+.products {
+  padding: 2rem;
+}
+.product-grid {
+  display: flex;
+  justify-content: space-around;
+}
+.subscribe {
+  text-align: center;
+  padding: 2rem;
+}
+input[type="email"] {
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+button {
+  padding: 0.5rem 1rem;
+  background: #f0d7a1;
+  border: none;
+  color: #000;
+  font-weight: bold;
+}
