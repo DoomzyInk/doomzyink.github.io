@@ -1,0 +1,263 @@
+{% comment %}
+  The collection template for Doomzy Ink
+  Includes filters, sorting, and product grid
+{% endcomment %}
+
+{% paginate collection.products by 12 %}
+  <div class="collection-page">
+    <!-- Collection Header -->
+    <header class="collection-header">
+      <div class="collection-header-content">
+        <h1 class="collection-title">{{ collection.title }}</h1>
+        {% if collection.description %}
+          <div class="collection-description rte">
+            {{ collection.description }}
+          </div>
+        {% endif %}
+      </div>
+      
+      <!-- Collection Image (if available) -->
+      {% if collection.image %}
+        <div class="collection-image">
+          <img 
+            src="{{ collection.image | img_url: '1200x' }}" 
+            alt="{{ collection.title | escape }}"
+            loading="lazy"
+          >
+        </div>
+      {% endif %}
+    </header>
+    
+    <!-- Collection Toolbar -->
+    <div class="collection-toolbar">
+      <!-- Active Filters -->
+      <div class="active-filters">
+        {%- for filter in collection.filters -%}
+          {%- if filter.type == 'price_range' -%}
+            {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+              <a class="active-filter" href="{{ filter.url_to_remove }}">
+                {%- assign min_value = filter.min_value.value | default: 0 -%}
+                {%- assign max_value = filter.max_value.value | default: filter.range_max -%}
+                {{ min_value | money }} - {{ max_value | money }} ×
+              </a>
+            {%- endif -%}
+          {%- else -%}
+            {%- for filter_value in filter.active_values -%}
+              <a class="active-filter" href="{{ filter_value.url_to_remove }}">
+                {{ filter_value.label }} ×
+              </a>
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}
+        <a href="{{ collection.url }}?sort_by={{ collection.sort_by }}" class="clear-filters">
+          Clear all
+        </a>
+      </div>
+      
+      <!-- Sorting -->
+      <div class="collection-sorting">
+        <label for="sort-by">Sort by:</label>
+        <select name="sort_by" id="sort-by" class="sort-select">
+          {% for option in collection.sort_options %}
+            <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>
+              {{ option.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="collection-container">
+      <!-- Sidebar Filters -->
+      <aside class="collection-sidebar">
+        <form class="filter-form">
+          {%- for filter in collection.filters -%}
+            <div class="filter-group">
+              <button type="button" class="filter-group-toggle" aria-expanded="true">
+                <span class="filter-group-name">{{ filter.label }}</span>
+                <span class="filter-group-indicator">+</span>
+              </button>
+              
+              <div class="filter-group-content">
+                {%- case filter.type -%}
+                  {%- when 'list' -%}
+                    <ul class="filter-options">
+                      {%- for filter_value in filter.values -%}
+                        <li class="filter-option">
+                          <label class="filter-checkbox">
+                            <input 
+                              type="checkbox" 
+                              name="{{ filter_value.param_name }}" 
+                              value="{{ filter_value.value }}" 
+                              {% if filter_value.active -%}checked{%- endif %}
+                              {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
+                            >
+                            <span class="checkmark"></span>
+                            <span class="filter-label">
+                              {{ filter_value.label }}
+                              <span class="filter-count">({{ filter_value.count }})</span>
+                            </span>
+                          </label>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                    
+                  {%- when 'price_range' -%}
+                    <div class="price-range">
+                      <div class="price-range-inputs">
+                        <div class="price-range-field">
+                          <span class="price-currency">{{ cart.currency.symbol }}</span>
+                          <input 
+                            class="price-range-input" 
+                            name="{{ filter.min_value.param_name }}" 
+                            id="filter-{{ filter.min_value.param_name }}" 
+                            {% if filter.min_value.value -%}
+                              value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                            {%- endif %}
+                            type="number"
+                            placeholder="0"
+                            min="0"
+                            max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                          >
+                          <label for="filter-{{ filter.min_value.param_name }}">From</label>
+                        </div>
+                        <span class="price-range-separator">-</span>
+                        <div class="price-range-field">
+                          <span class="price-currency">{{ cart.currency.symbol }}</span>
+                          <input 
+                            class="price-range-input" 
+                            name="{{ filter.max_value.param_name }}" 
+                            id="filter-{{ filter.max_value.param_name }}" 
+                            {% if filter.max_value.value -%}
+                              value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                            {%- endif %}
+                            type="number"
+                            placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                            min="0"
+                            max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                          >
+                          <label for="filter-{{ filter.max_value.param_name }}">To</label>
+                        </div>
+                      </div>
+                      <div class="price-range-slider">
+                        <div class="price-range-track"></div>
+                        <input 
+                          type="range" 
+                          class="price-range-min" 
+                          min="0" 
+                          max="{{ filter.range_max | money_without_currency | replace: ',', '' }}" 
+                          value="{{ filter.min_value.value | default: 0 }}" 
+                          data-min="0"
+                        >
+                        <input 
+                          type="range" 
+                          class="price-range-max" 
+                          min="0" 
+                          max="{{ filter.range_max | money_without_currency | replace: ',', '' }}" 
+                          value="{{ filter.max_value.value | default: filter.range_max | money_without_currency | replace: ',', '' }}" 
+                          data-max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                        >
+                      </div>
+                    </div>
+                {%- endcase -%}
+              </div>
+            </div>
+          {%- endfor -%}
+          
+          <div class="filter-actions">
+            <button type="submit" class="apply-filters">Apply Filters</button>
+            <a href="{{ collection.url }}?sort_by={{ collection.sort_by }}" class="clear-filters">
+              Clear all
+            </a>
+          </div>
+        </form>
+      </aside>
+      
+      <!-- Product Grid -->
+      <div class="product-grid-container">
+        {% if collection.products_count > 0 %}
+          <div class="product-grid">
+            {% for product in collection.products %}
+              {% include 'product-card', product: product %}
+            {% endfor %}
+          </div>
+          
+          <!-- Pagination -->
+          {% if paginate.pages > 1 %}
+            <div class="pagination">
+              {{ paginate | default_pagination: 
+                next: '<i class="fas fa-chevron-right"></i>', 
+                previous: '<i class="fas fa-chevron-left"></i>'
+              }}
+            </div>
+          {% endif %}
+        {% else %}
+          <div class="collection-empty">
+            <p>No products found in this collection.</p>
+            <a href="{{ routes.all_products_collection_url }}" class="button">
+              View all products
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Collection Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Collection Settings"
+    },
+    {
+      "type": "select",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "options": [
+        { "value": "12", "label": "12" },
+        { "value": "24", "label": "24" },
+        { "value": "36", "label": "36" },
+        { "value": "48", "label": "48" }
+      ],
+      "default": "12"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show product vendors",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_view",
+      "label": "Show quick view",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Filtering"
+    },
+    {
+      "type": "select",
+      "id": "filter_type",
+      "label": "Filter type",
+      "options": [
+        { "value": "sidebar", "label": "Sidebar" },
+        { "value": "drawer", "label": "Drawer" },
+        { "value": "none", "label": "None" }
+      ],
+      "default": "sidebar"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "label": "Enable sorting",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,118 @@
+<!-- Product Card Component -->
+<div class="product-card {% if product.available == false %}sold-out{% endif %}" data-product-id="{{ product.id }}">
+  <!-- Product Image with Hover Effect -->
+  <div class="product-image-container">
+    <a href="{{ product.url | within: collection }}" class="product-image-link">
+      {% if product.featured_image %}
+        <img 
+          src="{{ product.featured_image.src | img_url: '600x' }}" 
+          alt="{{ product.featured_image.alt | escape }}"
+          class="product-image"
+          loading="lazy"
+        >
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+      
+      <!-- Sold Out Badge -->
+      {% unless product.available %}
+        <span class="sold-out-badge">SOLD OUT</span>
+      {% endunless %}
+      
+      <!-- Quick View Button -->
+      <button class="quick-view-button" data-product-handle="{{ product.handle }}">
+        <i class="fas fa-eye"></i> QUICK VIEW
+      </button>
+    </a>
+  </div>
+  
+  <!-- Product Info -->
+  <div class="product-info">
+    <!-- Vendor (Optional) -->
+    {% if settings.show_vendor %}
+      <div class="product-vendor">{{ product.vendor }}</div>
+    {% endif %}
+    
+    <!-- Product Title -->
+    <h3 class="product-title">
+      <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+    </h3>
+    
+    <!-- Price -->
+    <div class="product-price">
+      {% if product.compare_at_price > product.price %}
+        <span class="sale-price">{{ product.price | money }}</span>
+        <span class="original-price"><s>{{ product.compare_at_price | money }}</s></span>
+        <span class="sale-badge">SALE</span>
+      {% else %}
+        {{ product.price | money }}
+      {% endif %}
+      
+      {% if product.price_varies %}
+        <small>from</small>
+      {% endif %}
+    </div>
+    
+    <!-- Color Swatches (if available) -->
+    {% if product.options contains 'Color' %}
+      <div class="color-swatches">
+        {% for option in product.options_with_values %}
+          {% if option.name == 'Color' %}
+            {% for value in option.values %}
+              <span 
+                class="color-swatch" 
+                style="background-color: {{ value | handleize }};"
+                data-value="{{ value | escape }}"
+                title="{{ value }}"
+              ></span>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+    
+    <!-- Add to Cart Form -->
+    <form action="/cart/add" method="post" enctype="multipart/form-data" class="add-to-cart-form">
+      <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+      <button 
+        type="submit" 
+        name="add" 
+        class="add-to-cart-button {% unless product.available %}disabled{% endunless %}"
+        {% unless product.available %}disabled{% endunless %}>
+        <span class="button-text">
+          {% if product.available %}
+            ADD TO CART
+          {% else %}
+            SOLD OUT
+          {% endif %}
+        </span>
+        <span class="button-icon">
+          <i class="fas fa-shopping-cart"></i>
+        </span>
+      </button>
+    </form>
+    
+    <!-- Wishlist Button -->
+    <button class="wishlist-button" data-product-handle="{{ product.handle }}">
+      <i class="far fa-heart"></i> SAVE
+    </button>
+  </div>
+  
+  <!-- Product Labels (New, Bestseller, etc.) -->
+  <div class="product-labels">
+    {% if product.tags contains 'new' %}
+      <span class="product-label new">NEW</span>
+    {% endif %}
+    {% if product.tags contains 'bestseller' %}
+      <span class="product-label bestseller">BESTSELLER</span>
+    {% endif %}
+    {% if product.compare_at_price > product.price %}
+      <span class="product-label sale">SALE</span>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Quick View Modal (Hidden by default) -->
+<div id="quick-view-{{ product.handle }}" class="quick-view-modal" style="display: none;">
+  <!-- Modal content will be loaded via AJAX -->
+</div>
