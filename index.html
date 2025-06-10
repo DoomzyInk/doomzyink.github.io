@@ -1,228 +1,500 @@
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Doomzy Ink - Unique apparel for the mentally unwell. Join the cult.">
-  <title>Doomzy Ink | Mentally Unwell Since Day One</title>
-  {{ 'theme.css' | asset_url | stylesheet_tag }}
-  {{ 'custom.css' | asset_url | stylesheet_tag }}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cursed shirts. Iconic designs. Banned looks that should've stayed in Hell.">
+  <title>Doomzy Ink – Dangerous Streetwear</title>
   
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+  <link rel="stylesheet" href="assets/css/storefront.css">
+  
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
   
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Social Media Meta Tags -->
+  <meta property="og:title" content="Doomzy Ink – Dangerous Streetwear">
+  <meta property="og:description" content="Cursed shirts. Iconic designs. Banned looks that should've stayed in Hell.">
+  <meta property="og:image" content="assets/images/og-image.jpg">
+  <meta property="og:url" content="https://doomzyink.com">
+  <meta name="twitter:card" content="summary_large_image">
+  
+  <!-- Preload critical resources -->
+  <link rel="preload" href="assets/fonts/archivo-v19-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/archivo-black-v18-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  
+  <!-- Preconnect to external domains -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <meta property="og:image" content="assets/images/og-image.jpg">
+  <meta property="og:url" content="https://doomzyink.com">
+  <meta name="twitter:card" content="summary_large_image">
+  
+  <style>
+    /* Critical CSS for above-the-fold content */
+    :root {
+      --primary: #8a2be2;
+      --primary-dark: #6a1f9e;
+      --bg-dark: #0a0a0a;
+      --bg-darker: #050505;
+      --text: #ffffff;
+      --text-muted: #999999;
+      --border: #333333;
+      --accent: #ff00c1;
+      --accent-secondary: #00fff9;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Archivo', sans-serif;
+      background-color: var(--bg-darker);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-darker);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    
+    .loader {
+      width: 50px;
+      height: 50px;
+      border: 3px solid var(--primary);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
-<body>
-  <header>
-    <div class="header-container">
-      <h1>DOOMZY INK</h1>
-      <nav>
-        <a href="#" class="active">Home</a>
-        <a href="#products">Products</a>
-        <a href="#cult">Cult Access</a>
-        <a href="#lore">Lore</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
-  <main>
-    <section class="hero">
-      <div class="hero-content">
-        <h2>Mentally Unwell<br><small>Since Day One</small></h2>
-        <p>Join the Doomzy Cult. Wear the madness.</p>
-        <a href="#products" class="cta-button">Shop Now</a>
+<body class="store-body">
+  <!-- Page Loader -->
+  <div class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+  
+  <!-- Navigation -->
+  <nav class="store-nav">
+    <div class="store-container">
+      <div class="nav-inner">
+        <a href="#" class="logo">Doomzy Ink</a>
+        
+        <div class="desktop-nav">
+          <ul>
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#shop" class="nav-link">Shop</a></li>
+            <li><a href="#collections" class="nav-link">Collections</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="nav-actions">
+          <button class="nav-icon search-toggle" aria-label="Search">
+            <i class="fas fa-search"></i>
+          </button>
+          <a href="#" class="nav-icon cart-icon" aria-label="Cart">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+          </a>
+          <button class="menu-toggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
       </div>
+    </div>
+    
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <div class="store-container">
+        <form class="search-form">
+          <input type="search" placeholder="Search our cursed collection..." class="search-input">
+          <button type="submit" class="search-submit">
+            <i class="fas fa-search"></i>
+          </button>
+          <button type="button" class="search-close">
+            <i class="fas fa-times"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav">
+    <div class="mobile-nav-inner">
+      <ul>
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#shop" class="nav-link">Shop</a></li>
+        <li><a href="#collections" class="nav-link">Collections</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      
+      <div class="mobile-social">
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="store-hero" id="home">
+      <div class="hero-media">
+        <img src="assets/images/hero-bg.jpg" alt="Doomzy Ink Hero" class="hero-image">
+        <div class="hero-overlay"></div>
+      </div>
+      
+      <div class="hero-content store-container">
+        <div class="hero-text">
+          <h1 class="hero-title" data-text="DOOMZY INK">DOOMZY INK</h1>
+          <p class="hero-subtitle">Cursed shirts. Iconic designs. Banned looks that should've stayed in Hell.</p>
+          <div class="hero-cta">
+            <a href="#shop" class="store-btn store-btn-primary">Shop Now</a>
+            <a href="#collections" class="store-btn store-btn-outline">View Collections</a>
+          </div>
+        </div>
+      </div>
+      
+      <a href="#shop" class="scroll-indicator">
+        <span>Scroll Down</span>
+        <i class="fas fa-chevron-down"></i>
+      </a>
     </section>
-
-    <section id="products" class="products">
-      <h2 class="section-title">Featured Collection</h2>
-      <div class="product-grid">
-        <div class="product-card">
-          <div class="product-image">
-            <img src="assets/images/placeholder1.jpg" alt="Creepy But Interesting T-Shirt" onerror="this.src='https://via.placeholder.com/300x400/1a1712/f0d7a1?text=Creepy+But+Interesting'">
-            <div class="product-overlay">
-              <button class="quick-view">Quick View</button>
+    
+    <!-- Featured Products Section -->
+    <section class="store-section" id="shop">
+      <div class="store-container">
+        <div class="section-header">
+          <h2 class="section-title">Cursed Collection</h2>
+          <p class="section-subtitle">Handcrafted garments infused with dark energy</p>
+        </div>
+        
+        <!-- Product Filters -->
+        <div class="store-filters">
+          <button class="store-filter-btn active" data-filter="all">All Items</button>
+          <button class="store-filter-btn" data-filter="shirts">Shirts</button>
+          <button class="store-filter-btn" data-filter="hoodies">Hoodies</button>
+          <button class="store-filter-btn" data-filter="accessories">Accessories</button>
+          <button class="store-filter-btn" data-filter="new">New Arrivals</button>
+          <button class="store-filter-btn" data-filter="sale">On Sale</button>
+        </div>
+        
+        <!-- Product Grid -->
+        <div class="store-products-grid" id="product-grid">
+          <!-- Products will be loaded here via JavaScript -->
+          <div class="store-product-card">
+            <div class="store-product-image">
+              <img src="assets/images/placeholder-product.jpg" alt="Product 1" loading="lazy">
+              <span class="store-product-badge new">New</span>
+              <div class="store-product-overlay">
+                <button class="store-btn store-btn-outline quick-view" data-product-id="1">Quick View</button>
+              </div>
+            </div>
+            <div class="store-product-info">
+              <span class="store-product-category">Shirts</span>
+              <h3 class="store-product-title">Cursed Design Tee</h3>
+              <div class="store-product-price">
+                $29.99 <span class="original">$39.99</span>
+              </div>
+              <div class="store-product-actions">
+                <button class="store-btn store-btn-primary add-to-cart" data-product-id="1">Add to Cart</button>
+                <button class="store-btn store-btn-outline view-details" data-product-id="1">Details</button>
+              </div>
             </div>
           </div>
-          <h3>Creepy But Interesting</h3>
-          <p class="price">$29.99</p>
-          <button class="add-to-cart">Add to Cart</button>
+          
+          <!-- More product cards will be added by JavaScript -->
         </div>
-
-        <div class="product-card">
-          <div class="product-image">
-            <img src="assets/images/placeholder2.jpg" alt="Try Milk Hoodie" onerror="this.src='https://via.placeholder.com/300x400/1a1712/f0d7a1?text=Try+Milk'">
+        
+        <div class="text-center" style="margin-top: 3rem;">
+          <button id="load-more" class="store-btn store-btn-outline">Load More</button>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Collections Banner -->
+    <section class="collections-banner store-section">
+      <div class="store-container">
+        <div class="banner-content">
+          <h2>Limited Edition Drops</h2>
+          <p>Exclusive designs available for a limited time only. Don't miss out!</p>
+          <a href="#collections" class="store-btn store-btn-primary">View Collections</a>
+        </div>
+      </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about-section store-section" id="about">
+      <div class="store-container">
+        <div class="about-grid">
+          <div class="about-content">
+            <span class="section-tag">Our Story</span>
+            <h2 class="section-title">Born from the Shadows</h2>
+            <p>Doomzy Ink emerged from the underground, where art meets rebellion. Our designs are more than just clothing—they're statements that challenge the ordinary and celebrate the unconventional.</p>
+            <p>Each piece is crafted with meticulous attention to detail, using only the finest materials and printing techniques to ensure your cursed garments last a lifetime.</p>
+            <a href="#" class="store-btn store-btn-outline">Learn More</a>
+          </div>
+          <div class="about-image">
+            <img src="assets/images/about-image.jpg" alt="Doomzy Ink Studio" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Instagram Feed -->
+    <section class="instagram-section store-section" id="instagram">
+      <div class="store-container">
+        <div class="section-header">
+          <h2 class="section-title">Cursed in the Wild</h2>
+          <p class="section-subtitle">Tag <a href="https://instagram.com/doomzyink" target="_blank">@doomzyink</a> to be featured</p>
+        </div>
+        
+        <div class="instagram-grid">
+          <!-- Instagram posts will be loaded here via JavaScript -->
+          <div class="instagram-placeholder">
+            <i class="fab fa-instagram"></i>
+            <p>Loading Instagram feed...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Newsletter Section -->
+    <section class="newsletter-section store-section">
+      <div class="store-container">
+        <div class="newsletter-inner">
+          <div class="newsletter-content">
+            <h2>Join the Cult</h2>
+            <p>Subscribe to get exclusive access to new drops, secret sales, and cursed content.</p>
+          </div>
+          <form class="newsletter-form">
+            <div class="form-group">
+              <input type="email" placeholder="Enter your email" required>
+              <button type="submit" class="store-btn store-btn-primary">Subscribe</button>
             </div>
-            <div class="scroll-down">
-                <span>Scroll Down</span>
-                <i class="fas fa-chevron-down"></i>
+            <div class="form-note">
+              <p>By subscribing, you agree to our <a href="#">Privacy Policy</a> and consent to receive updates from our company.</p>
             </div>
-        </section>
-
-        <!-- Featured Products -->
-        <section id="products" class="products section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Featured <span>Products</span></h2>
-                    <p class="section-subtitle">Discover our latest occult-inspired designs</p>
-                </div>
-                
-                <div id="products-grid" class="products-grid">
-                    <!-- Products will be loaded from products.json -->
-                    <div class="product-card skeleton">
-                        <div class="product-image"></div>
-                        <div class="product-info">
-                            <h3 class="skeleton-text">Loading...</h3>
-                            <p class="price skeleton-text">$00.00</p>
-                        </div>
-                    </div>
-                    <!-- More skeleton loaders will be added by JS -->
-                </div>
-                
-                <div class="text-center">
-                    <a href="#" class="btn btn-secondary">View All Products</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Cult Access CTA -->
-        <section class="cult-cta section">
-            <div class="container">
-                <div class="cult-content">
-                    <h2>Join the Cult</h2>
-                    <p>Unlock exclusive designs, early access, and member-only content</p>
-                    <button class="cult-button">
-                        <span class="button-text">Become a Member</span>
-                        <span class="button-icon"><i class="fas fa-arrow-right"></i></span>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Hotline Preview -->
-        <section id="hotline" class="hotline section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">The <span>Hotline</span></h2>
-                    <p class="section-subtitle">Listen to our latest broadcast</p>
-                </div>
-                
-                <div class="audio-player">
-                    <div class="waveform">
-                        <div class="wave"></div>
-                        <div class="wave"></div>
-                        <div class="wave"></div>
-                        <div class="wave"></div>
-                        <div class="wave"></div>
-                    </div>
-                    
-                    <div class="player-controls">
-                        <button id="play-pause" class="control-btn">
-                            <i class="fas fa-play"></i>
-                        </button>
-                        
-                        <div class="progress-container">
-                            <span id="current-time">0:00</span>
-                            <input type="range" id="progress" class="progress-bar" min="0" max="100" value="0">
-                            <span id="duration">2:45</span>
-                        </div>
-                        
-                        <div class="volume-container">
-                            <button id="volume" class="control-btn">
-                                <i class="fas fa-volume-up"></i>
-                            </button>
-                            <input type="range" id="volume-slider" class="volume-slider" min="0" max="100" value="80">
-                        </div>
-                    </div>
-                    
-                    <div class="episode-info">
-                        <h3>Episode 13: The Forbidden Tome</h3>
-                        <p>Unveiling the mysteries of the ancient texts</p>
-                    </div>
-                </div>
-                
-                <div class="hotline-cta">
-                    <p>Subscribe to our podcast for more occult knowledge</p>
-                    <div class="podcast-buttons">
-                        <a href="#" class="podcast-btn spotify">
-                            <i class="fab fa-spotify"></i> Spotify
-                        </a>
-                        <a href="#" class="podcast-btn apple">
-                            <i class="fab fa-apple"></i> Apple Podcasts
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Lore Preview -->
-        <section id="about" class="lore section">
-            <div class="container">
-                <div class="lore-container">
-                    <div class="lore-content">
-                        <h2 class="section-title">The <span>Lore</span></h2>
-                        <p>Behind every design lies a story from the depths of the unknown. Our creations are more than just art—they're gateways to hidden realms and forgotten knowledge.</p>
-                        <p>Each piece is imbued with symbolism and meaning, drawing from ancient occult traditions, gothic literature, and the mysteries of the cosmos.</p>
-                        <a href="#" class="btn btn-outline">Explore the Lore</a>
-                    </div>
-                    <div class="lore-card">
-                        <div class="card-inner">
-                            <div class="card-front">
-                                <img src="assets/images/lore-card-front.jpg" alt="Ancient Tome">
-                                <div class="card-overlay">
-                                    <span>Reveal the Secret</span>
-                                </div>
-                            </div>
-                            <div class="card-back">
-                                <h3>Knowledge Forbidden?</h3>
-                                <p>Some knowledge is hidden for a reason. Are you prepared for what you might discover?</p>
-                                <button class="btn btn-small">Unlock More</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Newsletter -->
-        <section id="contact" class="newsletter section">
-            <div class="container">
-                <div class="newsletter-container">
-                    <div class="newsletter-content">
-                        <h2>Join Our Coven</h2>
-                        <p>Subscribe to receive updates on new releases, exclusive offers, and secret knowledge.</p>
-                    </div>
-                    <form class="newsletter-form">
-                        <div class="form-group">
-                            <input type="email" placeholder="Enter your email" required>
-                            <button type="submit" class="btn btn-primary">Subscribe</button>
-                        </div>
-                        <div class="form-message"></div>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </main>
-
+          </form>
+        </div>
+      </div>
+    </section>
+    
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <img src="assets/images/logo-spiral.svg" alt="Doomzy Ink" class="logo-img">
-                        <span class="logo-text">Doomzy Ink</span>
-                    </div>
-                    <p>Dark art and occult-inspired designs</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
-                    </div>
-                </div>
+    <footer class="store-footer">
+      <div class="store-container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href="#" class="footer-logo">Doomzy Ink</a>
+            <p>Cursed shirts. Iconic designs. Banned looks that should've stayed in Hell.</p>
+            <div class="footer-social">
+              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+              <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+            </div>
+          </div>
+          
+          <div class="footer-links">
+            <h3>Shop</h3>
+            <ul>
+              <li><a href="#">New Arrivals</a></li>
+              <li><a href="#">Best Sellers</a></li>
+              <li><a href="#">Collections</a></li>
+              <li><a href="#">Accessories</a></li>
+              <li><a href="#">Sale</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-links">
+            <h3>Help</h3>
+            <ul>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">FAQs</a></li>
+              <li><a href="#">Shipping & Returns</a></li>
+              <li><a href="#">Size Guide</a></li>
+              <li><a href="#">Track Order</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-links">
+            <h3>About</h3>
+            <ul>
+              <li><a href="#">Our Story</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          <p>&copy; 2025 Doomzy Ink. All rights reserved. Cursed in the USA.</p>
+          <div class="payment-methods">
+            <i class="fab fa-cc-visa" title="Visa"></i>
+            <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+            <i class="fab fa-cc-amex" title="American Express"></i>
+            <i class="fab fa-cc-paypal" title="PayPal"></i>
+            <i class="fab fa-bitcoin" title="Bitcoin"></i>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Loading Screen -->
+    <div class="loading">
+      <div class="loader"></div>
+    </div>
+    
+    <!-- Page Transition Overlay -->
+  <div class="page-transition"></div>
+  
+  <!-- Custom Cursor -->
+  <div class="cursor"></div>
+  <!-- Navigation -->
+  <nav class="nav-scroll">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="logo">DOOMZY INK</a>
+        
+        <!-- Desktop Navigation -->
+        <div class="desktop-nav">
+          <ul>
+            <li><a href="#home" class="nav-link">Home</a></li>
+            <li><a href="#shop" class="nav-link">Shop</a></li>
+            <li><a href="#lore" class="nav-link">Lore</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+          </ul>
+        </div>
+        
+        <!-- Cart and Search -->
+        <div class="nav-actions">
+          <a href="#search" class="nav-icon search-toggle">
+            <i class="fas fa-search"></i>
+          </a>
+          <a href="#cart" class="nav-icon cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+          </a>
+          <button class="menu-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+      <div class="mobile-nav-inner">
+        <ul>
+          <li><a href="#home" class="nav-link">Home</a></li>
+          <li><a href="#shop" class="nav-link">Shop</a></li>
+          <li><a href="#lore" class="nav-link">Lore</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        
+        <div class="mobile-social">
+          <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+          <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+          <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-etsy"></i></a>
+          <a href="#" target="_blank" rel="noopener noreferrer"><i class="fas fa-link"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <div class="container">
+        <form action="/search" method="get" role="search">
+          <input type="search" name="q" placeholder="Search the collection..." autocomplete="off">
+          <button type="submit" class="search-submit">
+            <i class="fas fa-search"></i>
+          </button>
+          <button type="button" class="search-close">
+            <i class="fas fa-times"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="hero-media">
+        <div class="hero-image" style="background-image: url('assets/images/hero-bg.jpg');"></div>
+        <div class="hero-overlay"></div>
+      </div>
+      
+      <div class="hero-content container">
+        <div class="hero-text">
+          <h1 class="hero-title glitch" data-text="DOOMZY INK">DOOMZY INK</h1>
+          <p class="hero-subtitle">Cursed shirts. Iconic designs. Banned looks that should've stayed in Hell.</p>
+          <div class="hero-cta">
+            <a href="#shop" class="btn btn-primary scroll-link">Shop Collection</a>
+            <a href="#lore" class="btn btn-outline scroll-link">Explore Lore</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="scroll-indicator">
+        <span>Scroll</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </section>
+    
+    <!-- Featured Products -->
+    <section id="shop" class="section products-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Latest Drops</h2>
+          <p class="section-subtitle">Fresh from the depths of our twisted minds</p>
                 
                 <div class="footer-links">
                     <div class="footer-column">
