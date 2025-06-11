@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQs - Doomzy Ink</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/animations.css">
+  <link rel="stylesheet" href="/assets/css/storefront.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .faq-section {
+      padding: 4rem 0;
+    }
+    
+    .faq-categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+      justify-content: center;
+    }
+    
+    .category-btn {
+      background: var(--secondary-bg);
+      border: 1px solid var(--accent-color);
+      color: var(--accent-color);
+      padding: 0.5rem 1.25rem;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+    
+    .category-btn:hover,
+    .category-btn.active {
+      background: var(--accent-color);
+      color: var(--text-dark);
+    }
+    
+    .faq-container {
+      max-width: 900px;
+      margin: 0 auto 3rem;
+    }
+    
+    .faq-item {
+      margin-bottom: 1rem;
+      border: 1px solid #333;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .faq-item:not(.active) {
+      display: none;
+    }
+    
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      padding: 1.25rem 1.5rem;
+      background: var(--secondary-bg);
+      border: none;
+      color: var(--accent-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .faq-question:hover {
+      background: #222;
+    }
+    
+    .faq-question i {
+      transition: transform 0.3s ease;
+    }
+    
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+    
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      background: #111;
+    }
+    
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+    }
+    
+    .faq-answer-inner {
+      padding: 1.5rem;
+    }
+    
+    .faq-answer p {
+      margin-bottom: 1rem;
+      color: #ddd;
+    }
+    
+    .faq-answer p:last-child {
+      margin-bottom: 0;
+    }
+    
+    .faq-contact {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: var(--secondary-bg);
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+    
+    .faq-contact h3 {
+      color: var(--accent-color);
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    
+    .faq-contact p {
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+      color: #aaa;
+    }
+    
+    @media (max-width: 768px) {
+      .faq-categories {
+        gap: 0.5rem;
+      }
+      
+      .category-btn {
+        padding: 0.4rem 0.9rem;
+        font-size: 0.8rem;
+      }
+      
+      .faq-question {
+        padding: 1rem;
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body class="store-body">
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="site-logo">Doomzy<span>Ink</span></a>
+      
+      <nav class="desktop-nav">
+        <a href="/collections/all">Shop</a>
+        <a href="/collections/shirts">Shirts</a>
+        <a href="/collections/hoodies">Hoodies</a>
+        <a href="/collections/accessories">Accessories</a>
+        <a href="/collections/new-arrivals">New Arrivals</a>
+        <a href="/collections/on-sale">On Sale</a>
+      </nav>
+      
+      <div class="header-icons">
+        <a href="#" class="search-toggle" aria-label="Search">
+          <i class="fas fa-search"></i>
+        </a>
+        <a href="/account" aria-label="Account">
+          <i class="far fa-user"></i>
+        </a>
+        <a href="/cart" class="cart-link" aria-label="Cart">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count">0</span>
+        </a>
+        <button class="mobile-menu-toggle" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+      <a href="/collections/all">Shop All</a>
+      <a href="/collections/shirts">Shirts</a>
+      <a href="/collections/hoodies">Hoodies</a>
+      <a href="/collections/accessories">Accessories</a>
+      <a href="/collections/new-arrivals">New Arrivals</a>
+      <a href="/collections/on-sale">On Sale</a>
+      <div class="mobile-nav-divider"></div>
+      <a href="/about">About Us</a>
+      <a href="/contact">Contact</a>
+      <a href="/faq" class="active">FAQs</a>
+      <a href="/shipping-returns">Shipping & Returns</a>
+      <a href="/privacy-policy">Privacy Policy</a>
+      <a href="/terms-of-service">Terms of Service</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1>Frequently Asked Questions</h1>
+        <p>Find answers to common questions about our products and services</p>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <div class="container">
+        <div class="faq-categories">
+          <button class="category-btn active" data-category="all">All Questions</button>
+          <button class="category-btn" data-category="orders">Orders</button>
+          <button class="category-btn" data-category="shipping">Shipping</button>
+          <button class="category-btn" data-category="returns">Returns & Exchanges</button>
+          <button class="category-btn" data-category="products">Products</button>
+          <button class="category-btn" data-category="account">Account</button>
+        </div>
+        
+        <div class="faq-container">
+          <div class="faq-item active" data-categories="orders,shipping">
+            <button class="faq-question">
+              <span>How long does shipping take?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <p>We offer several shipping options to meet your needs:</p>
+                <ul>
+                  <li><strong>Standard Shipping (3-5 business days):</strong> $5.99</li>
+                  <li><strong>Expedited Shipping (2 business days):</strong> $12.99</li>
+                  <li><strong>Next Day Shipping (1 business day):</strong> $24.99</li>
+                </ul>
+                <p>International shipping typically takes 7-14 business days. Please note that delivery times may be affected by customs processing and other factors outside our control.</p>
+                <p>You'll receive a shipping confirmation with tracking information as soon as your order leaves our warehouse.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="faq-item" data-categories="orders,account">
+            <button class="faq-question">
+              <span>How can I track my order?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <p>Tracking your order is easy:</p>
+                <ol>
+                  <li>Check your email for the shipping confirmation message (sent when your order ships)</li>
+                  <li>Click the tracking link in the email, or</li>
+                  <li>Visit our website and log in to your account to view order status</li>
+                  <li>Use the tracking number on the carrier's website (USPS, UPS, or FedEx)</li>
+                </ol>
+                <p>If you're having trouble tracking your package, please contact our support team with your order number.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="faq-item" data-categories="returns,shipping">
+            <button class="faq-question">
+              <span>What is your return policy?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <p>We want you to be completely satisfied with your purchase. Our return policy includes:</p>
+                <ul>
+                  <li><strong>30-Day Return Window:</strong> Items must be returned within 30 days of delivery</li>
+                  <li><strong>Condition:</strong> Items must be unworn, unwashed, and in original condition with tags attached</li>
+                  <li><strong>Proof of Purchase:</strong> Original receipt or order number is required</li>
+                </ul>
+                <p>To initiate a return, please visit our <a href="/returns" style="color: var(--accent-color);">Returns Center</a> and follow the instructions. Return shipping is the responsibility of the customer, unless the return is due to our error.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="faq-item" data-categories="products">
+            <button class="faq-question">
+              <span>How do I care for my clothing?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <p>To ensure your Doomzy Ink clothing stays looking its best, we recommend the following care instructions:</p>
+                <p><strong>Washing:</strong>
+                <ul>
+                  <li>Machine wash cold with like colors</li>
+                  <li>Use mild detergent</li>
+                  <li>Turn garments inside out before washing</li>
+                  <li>Wash dark colors separately</li>
+                </ul>
+                </p>
+                <p><strong>Drying:</strong>
+                <ul>
+                  <li>Tumble dry low or lay flat to dry</li>
+                  <li>Avoid high heat to prevent shrinking</li>
+                  <li>Remove promptly from dryer to prevent wrinkles</li>
+                </ul>
+                </p>
+                <p><strong>Ironing:</strong> If needed, iron on reverse side using low heat. Avoid direct contact with printed designs.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="faq-item" data-categories="account,orders">
+            <button class="faq-question">
+              <span>How do I change or cancel my order?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                <p>We process orders quickly to ensure fast delivery, which means we may not be able to make changes once your order is placed. However, here's what you can do:</p>
+                
+                <p><strong>To change an order:</strong>
+                <ol>
+                  <li>Contact our customer service immediately at <a href="mailto:support@doomzyink.com" style="color: var(--accent-color);">support@doomzyink.com</a> with your order number and requested changes</li>
+                  <li>If your order hasn't shipped, we'll do our best to accommodate your request</li>
+                  <li>If it has shipped, you may need to return the item(s) for an exchange</li>
+                </ol>
+                </p>
+                
+                <p><strong>To cancel an order:</strong>
+                <ol>
+                  <li>Email us at <a href="mailto:support@doomzyink.com" style="color: var(--accent-color);">support@doomzyink.com</a> with your order number and cancellation request</li>
+                  <li>If your order hasn't shipped, we'll cancel it and issue a full refund</li>
+                  <li>If it has shipped, you'll need to follow our return process upon receipt</li>
+                </ol>
+                </p>
+                
+                <p><em>Note:</em> We cannot guarantee that we'll be able to change or cancel your order, but we'll do our best to help!</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="faq-item" data-categories="returns">
+            <button class="faq-question">
+              <span>What is your return policy?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>We accept returns within 30 days of delivery for a full refund or exchange. Items must be unworn, unwashed, and in their original condition with all tags attached. Final sale items are not eligible for return or exchange.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item" data-categories="products">
+            <button class="faq-question">
+              <span>How do I care for my Doomzy Ink clothing?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>To ensure the longevity of your Doomzy Ink garments, we recommend washing them inside out in cold water with similar colors. Tumble dry on low heat or hang to dry. Avoid using bleach or fabric softeners, and iron on low heat if needed.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item" data-categories="shipping">
+            <button class="faq-question">
+              <span>Do you ship internationally?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>Yes, we ship worldwide! International shipping rates and delivery times vary by country. Please note that customers are responsible for any customs fees, import duties, or taxes that may be applied to international orders.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item" data-categories="orders,account">
+            <button class="faq-question">
+              <span>How do I change or cancel my order?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>We process orders quickly to ensure fast shipping, so please contact us immediately if you need to make changes or cancel your order. Email us at support@doomzyink.com with your order number and requested changes. We'll do our best to accommodate your request if your order hasn't shipped yet.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item" data-categories="products">
+            <button class="faq-question">
+              <span>What sizes do you offer?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>Our clothing is available in sizes XS-3XL. Please refer to our <a href="/size-guide">size guide</a> for detailed measurements to help you find your perfect fit. If you're between sizes, we recommend sizing up for a more comfortable fit.</p>
+            </div>
+          </div>
+          
+          <div class="faq-item" data-categories="account">
+            <button class="faq-question">
+              <span>How do I reset my password?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>Click on "Forgot Password" on the login page and enter the email address associated with your account. You'll receive an email with instructions to reset your password. If you don't see the email, please check your spam folder.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-contact">
+          <h3>Still have questions?</h3>
+          <p>Can't find the answer you're looking for? Our customer service team is here to help!</p>
+          <a href="/contact" class="btn btn-outline">Contact Us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <a href="/">DOOMZY<span>INK</span></a>
+          <p>Cursed shirts. Iconic designs. Banned looks that should've stayed in Hell.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-links-column">
+            <h3>Shop</h3>
+            <a href="/collections/all">All Products</a>
+            <a href="/collections/new-arrivals">New Arrivals</a>
+            <a href="/collections/best-sellers">Best Sellers</a>
+            <a href="/collections/on-sale">On Sale</a>
+          </div>
+          <div class="footer-links-column">
+            <h3>Help</h3>
+            <a href="/shipping-returns">Shipping & Returns</a>
+            <a href="/size-guide">Size Guide</a>
+            <a href="/faq">FAQs</a>
+            <a href="/contact">Contact Us</a>
+          </div>
+          <div class="footer-links-column">
+            <h3>About</h3>
+            <a href="/about">Our Story</a>
+            <a href="/blog">Blog</a>
+            <a href="/careers">Careers</a>
+            <a href="/press">Press</a>
+          </div>
+        </div>
+        <div class="footer-newsletter">
+          <h3>Stay Connected</h3>
+          <p>Subscribe for exclusive drops and updates</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your email address" required>
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+          <div class="social-links">
+            <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+            <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Doomzy Ink. All rights reserved. Cursed in the USA.</p>
+        <div class="footer-legal">
+          <a href="/privacy-policy">Privacy Policy</a>
+          <span>•</span>
+          <a href="/terms-of-service">Terms of Service</a>
+          <span>•</span>
+          <a href="/refund-policy">Refund Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <a href="#" class="back-to-top" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
+  <!-- JavaScript -->
+  <script src="/assets/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get all FAQ questions and category buttons
+      const faqItems = document.querySelectorAll('.faq-item');
+      const categoryButtons = document.querySelectorAll('.category-btn');
+      
+      // Show all FAQs by default
+      function showAllFAQs() {
+        faqItems.forEach(item => {
+          item.style.display = 'block';
+          item.classList.remove('active');
+          // Close all answers
+          const answer = item.querySelector('.faq-answer');
+          if (answer) {
+            answer.style.maxHeight = '0';
+          }
+        });
+      }
+      
+      // Show only FAQs from selected category
+      function filterByCategory(category) {
+        showAllFAQs();
+        
+        if (category === 'all') {
+          // Show first question's answer when showing all
+          const firstItem = document.querySelector('.faq-item');
+          if (firstItem) {
+            firstItem.classList.add('active');
+            const firstAnswer = firstItem.querySelector('.faq-answer');
+            if (firstAnswer) {
+              firstAnswer.style.maxHeight = firstAnswer.scrollHeight + 'px';
+            }
+          }
+          return;
+        }
+        
+        // Hide all items first
+        faqItems.forEach(item => {
+          item.style.display = 'none';
+        });
+        
+        // Show only items with matching category
+        const matchingItems = document.querySelectorAll(`.faq-item[data-categories*="${category}"]`);
+        matchingItems.forEach(item => {
+          item.style.display = 'block';
+        });
+        
+        // Show first matching question's answer
+        if (matchingItems.length > 0) {
+          matchingItems[0].classList.add('active');
+          const firstAnswer = matchingItems[0].querySelector('.faq-answer');
+          if (firstAnswer) {
+            firstAnswer.style.maxHeight = firstAnswer.scrollHeight + 'px';
+          }
+        }
+      }
+      
+      // Toggle FAQ answer visibility
+      function toggleFAQ(button) {
+        const faqItem = button.closest('.faq-item');
+        const answer = button.nextElementSibling;
+        
+        // Close all other open FAQs
+        faqItems.forEach(item => {
+          if (item !== faqItem) {
+            item.classList.remove('active');
+            const otherAnswer = item.querySelector('.faq-answer');
+            if (otherAnswer) {
+              otherAnswer.style.maxHeight = '0';
+            }
+          }
+        });
+        
+        // Toggle current FAQ
+        faqItem.classList.toggle('active');
+        
+        if (faqItem.classList.contains('active')) {
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        } else {
+          answer.style.maxHeight = '0';
+        }
+      }
+      
+      // Add click event listeners to FAQ questions
+      document.querySelectorAll('.faq-question').forEach(button => {
+        button.addEventListener('click', () => toggleFAQ(button));
+      });
+      
+      // Add click event listeners to category buttons
+      categoryButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Update active state
+          categoryButtons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+          
+          // Filter FAQs
+          const category = button.getAttribute('data-category');
+          filterByCategory(category);
+        });
+      });
+      
+      // Initialize with first FAQ open
+      if (faqItems.length > 0) {
+        const firstItem = document.querySelector('.faq-item');
+        if (firstItem) {
+          firstItem.classList.add('active');
+          const firstAnswer = firstItem.querySelector('.faq-answer');
+          if (firstAnswer) {
+            firstAnswer.style.maxHeight = firstAnswer.scrollHeight + 'px';
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doomzy Ink - Shop</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Snipcart Integration -->
+  <link rel="preconnect" href="https://app.snipcart.com">
+  <link rel="preconnect" href="https://cdn.snipcart.com">
+  <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.2.2/default/snipcart.css" />
+  <script async src="https://cdn.snipcart.com/themes/v3.2.2/default/snipcart.js"></script>
+  <div hidden id="snipcart" data-api-key="YOUR_SNIPCART_API_KEY" data-config-modal-style="side"></div>
+</head>
+<body class="catalog-page">
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="site-logo">Doomzy<span>Ink</span></a>
+      
+      <nav class="desktop-nav">
+        <a href="/catalog" class="active">Shop</a>
+        <a href="/collections/shirts">Shirts</a>
+        <a href="/collections/hoodies">Hoodies</a>
+        <a href="/collections/accessories">Accessories</a>
+        <a href="/collections/new-arrivals">New Arrivals</a>
+        <a href="/collections/on-sale">On Sale</a>
+      </nav>
+      
+      <div class="header-actions">
+        <button class="search-toggle" aria-label="Search">
+          <i class="fas fa-search"></i>
+        </button>
+        <a href="/account" class="account-link" aria-label="Account">
+          <i class="far fa-user"></i>
+        </a>
+        <button class="snipcart-checkout cart-link" aria-label="Cart">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count snipcart-items-count">0</span>
+        </button>
+        <button class="mobile-menu-toggle" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <nav class="mobile-nav">
+    <a href="/catalog" class="active">Shop All</a>
+    <a href="/collections/shirts">Shirts</a>
+    <a href="/collections/hoodies">Hoodies</a>
+    <a href="/collections/accessories">Accessories</a>
+    <a href="/collections/new-arrivals">New Arrivals</a>
+    <a href="/collections/on-sale">On Sale</a>
+    <div class="mobile-nav-divider"></div>
+    <a href="/about">About Us</a>
+    <a href="/contact">Contact</a>
+    <a href="/faq">FAQs</a>
+    <a href="/shipping-returns">Shipping & Returns</a>
+  </nav>
+
+  <main class="catalog-container">
+    <!-- Sidebar -->
+    <aside class="catalog-sidebar">
+      <div class="sidebar-header">
+        <h2>Categories</h2>
+        <button class="sidebar-toggle" aria-label="Toggle sidebar">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+      </div>
+      
+      <div class="sidebar-content">
+        <div class="category-filters">
+          <button class="filter-btn active" data-category="all">
+            <span>View All</span>
+            <span class="item-count">24</span>
+          </button>
+          <button class="filter-btn" data-category="shirts">
+            <span>Shirts</span>
+            <span class="item-count">8</span>
+          </button>
+          <button class="filter-btn" data-category="hoodies">
+            <span>Hoodies</span>
+            <span class="item-count">6</span>
+          </button>
+          <button class="filter-btn" data-category="accessories">
+            <span>Accessories</span>
+            <span class="item-count">4</span>
+          </button>
+          <button class="filter-btn" data-category="new-arrivals">
+            <span>New Arrivals</span>
+            <span class="item-count">5</span>
+          </button>
+          <button class="filter-btn" data-category="on-sale">
+            <span>On Sale</span>
+            <span class="item-count">3</span>
+          </button>
+        </div>
+        
+        <div class="tag-filters">
+          <h3>Collections</h3>
+          <div class="tag-list">
+            <button class="tag-btn" data-tag="cursed-drop">Cursed Drop</button>
+            <button class="tag-btn" data-tag="cult-exclusive">Cult Exclusive</button>
+            <button class="tag-btn" data-tag="drip-vault">Drip Vault</button>
+            <button class="tag-btn" data-tag="limited-edition">Limited Edition</button>
+          </div>
+        </div>
+        
+        <div class="price-filter">
+          <h3>Price Range</h3>
+          <div class="price-inputs">
+            <input type="number" id="min-price" placeholder="Min" min="0">
+            <span>to</span>
+            <input type="number" id="max-price" placeholder="Max" min="0">
+          </div>
+          <button class="apply-filter">Apply</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="catalog-main">
+      <div class="catalog-header">
+        <h1>Shop All</h1>
+        <div class="sort-options">
+          <label for="sort-by">Sort by:</label>
+          <select id="sort-by" class="sort-select">
+            <option value="featured">Featured</option>
+            <option value="newest">Newest</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="name-asc">Name: A to Z</option>
+            <option value="name-desc">Name: Z to A</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="product-grid" id="product-grid">
+        <!-- Products will be dynamically inserted here by JavaScript -->
+        <div class="loading-spinner">
+          <div class="spinner"></div>
+          <p>Summoning the collection...</p>
+        </div>
+      </div>
+      
+      <div class="pagination">
+        <button class="pagination-btn" disabled>
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="page-numbers">
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+        </div>
+        <button class="pagination-btn">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>Doomzy<span>Ink</span></h3>
+          <p>Dark fashion for the chosen ones.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="/collections/all">All Products</a></li>
+            <li><a href="/collections/new-arrivals">New Arrivals</a></li>
+            <li><a href="/collections/on-sale">On Sale</a></li>
+            <li><a href="/collections/limited-edition">Limited Edition</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-links">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="/faq">FAQs</a></li>
+            <li><a href="/shipping-returns">Shipping & Returns</a></li>
+            <li><a href="/size-guide">Size Guide</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-newsletter">
+          <h4>Join the Cult</h4>
+          <p>Subscribe for exclusive drops and dark deals.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your email" required>
+            <button type="submit" class="btn-subscribe">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Doomzy Ink. All rights reserved.</p>
+        <div class="legal-links">
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/terms-of-service">Terms of Service</a>
+          <a href="/refund-policy">Refund Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Scripts -->
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    // Mobile menu toggle
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const sidebarToggle = document.querySelector('.sidebar-toggle');
+    const sidebar = document.querySelector('.catalog-sidebar');
+    
+    if (mobileMenuToggle) {
+      mobileMenuToggle.addEventListener('click', () => {
+        mobileNav.classList.toggle('active');
+        mobileMenuToggle.setAttribute('aria-expanded', 
+          mobileMenuToggle.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'
+        );
+      });
+    }
+    
+    // Sidebar toggle for mobile
+    if (sidebarToggle) {
+      sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+        const icon = sidebarToggle.querySelector('i');
+        if (sidebar.classList.contains('collapsed')) {
+          icon.classList.remove('fa-chevron-left');
+          icon.classList.add('fa-chevron-right');
+        } else {
+          icon.classList.remove('fa-chevron-right');
+          icon.classList.add('fa-chevron-left');
+        }
+      });
+    }
+    
+    // Back to top button
+    const backToTopBtn = document.querySelector('.back-to-top');
+    if (backToTopBtn) {
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          backToTopBtn.classList.add('show');
+        } else {
+          backToTopBtn.classList.remove('show');
+        }
+      });
+      
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
+  </script>
+</body>
+</html>

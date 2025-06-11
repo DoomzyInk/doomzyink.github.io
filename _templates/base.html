@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page_title %}{{ page_title }} - {% endif %}Doomzy Ink</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/animations.css">
+  <link rel="stylesheet" href="/assets/css/storefront.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Social Media Meta Tags -->
+  <meta property="og:title" content="{{ page_title | default: 'Doomzy Ink - Dangerous Streetwear' }}">
+  <meta property="og:description" content="{{ page_description | default: "Cursed shirts. Iconic designs. Banned looks that should've stayed in Hell." }}">
+  <meta property="og:image" content="/assets/images/og-image.jpg">
+  <meta property="og:url" content="https://doomzyink.com{{ page.url | default: '' }}">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="store-body">
+  <!-- Page Loader -->
+  <div class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+  
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="site-logo">Doomzy<span>Ink</span></a>
+      
+      <nav class="desktop-nav">
+        <a href="/collections/all" {% if page == 'shop' %}class="active"{% endif %}>Shop</a>
+        <a href="/collections/shirts" {% if page == 'shirts' %}class="active"{% endif %}>Shirts</a>
+        <a href="/collections/hoodies" {% if page == 'hoodies' %}class="active"{% endif %}>Hoodies</a>
+        <a href="/collections/accessories" {% if page == 'accessories' %}class="active"{% endif %}>Accessories</a>
+        <a href="/collections/new-arrivals" {% if page == 'new-arrivals' %}class="active"{% endif %}>New Arrivals</a>
+        <a href="/collections/on-sale" {% if page == 'sale' %}class="active"{% endif %}>On Sale</a>
+      </nav>
+      
+      <div class="header-icons">
+        <a href="#" class="search-toggle" aria-label="Search">
+          <i class="fas fa-search"></i>
+        </a>
+        <a href="/account" aria-label="Account">
+          <i class="far fa-user"></i>
+        </a>
+        <a href="/cart" class="cart-link" aria-label="Cart">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count">0</span>
+        </a>
+        <button class="mobile-menu-toggle" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+      <a href="/collections/all" class="{% if page == 'shop' %}active{% endif %}">Shop All</a>
+      <a href="/collections/shirts" class="{% if page == 'shirts' %}active{% endif %}">Shirts</a>
+      <a href="/collections/hoodies" class="{% if page == 'hoodies' %}active{% endif %}">Hoodies</a>
+      <a href="/collections/accessories" class="{% if page == 'accessories' %}active{% endif %}">Accessories</a>
+      <a href="/collections/new-arrivals" class="{% if page == 'new-arrivals' %}active{% endif %}">New Arrivals</a>
+      <a href="/collections/on-sale" class="{% if page == 'sale' %}active{% endif %}">On Sale</a>
+      <div class="mobile-nav-divider"></div>
+      <a href="/about" class="{% if page == 'about' %}active{% endif %}">About Us</a>
+      <a href="/contact" class="{% if page == 'contact' %}active{% endif %}">Contact</a>
+      <a href="/faq" class="{% if page == 'faq' %}active{% endif %}">FAQs</a>
+      <a href="/shipping-returns" class="{% if page == 'shipping' %}active{% endif %}">Shipping & Returns</a>
+      <a href="/privacy-policy" class="{% if page == 'privacy' %}active{% endif %}">Privacy Policy</a>
+      <a href="/terms-of-service" class="{% if page == 'terms' %}active{% endif %}">Terms of Service</a>
+    </nav>
+    
+    <!-- Search Form -->
+    <div class="search-form">
+      <div class="container">
+        <form action="/search" method="get" role="search">
+          <input 
+            type="search" 
+            name="q" 
+            placeholder="Search products..." 
+            autocomplete="off" 
+            autofocus
+            aria-label="Search products"
+          >
+          <button type="submit" class="search-submit" aria-label="Submit search">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+        <button class="close-search" aria-label="Close search">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <a href="/">DOOMZY<span>INK</span></a>
+          <p>Cursed shirts. Iconic designs. Banned looks that should've stayed in Hell.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-links-column">
+            <h3>Shop</h3>
+            <a href="/collections/all">All Products</a>
+            <a href="/collections/new-arrivals">New Arrivals</a>
+            <a href="/collections/best-sellers">Best Sellers</a>
+            <a href="/collections/on-sale">On Sale</a>
+          </div>
+          <div class="footer-links-column">
+            <h3>Help</h3>
+            <a href="/shipping-returns">Shipping & Returns</a>
+            <a href="/size-guide">Size Guide</a>
+            <a href="/faq">FAQs</a>
+            <a href="/contact">Contact Us</a>
+          </div>
+          <div class="footer-links-column">
+            <h3>About</h3>
+            <a href="/about">Our Story</a>
+            <a href="/blog">Blog</a>
+            <a href="/careers">Careers</a>
+            <a href="/press">Press</a>
+          </div>
+        </div>
+        <div class="footer-newsletter">
+          <h3>Stay Connected</h3>
+          <p>Subscribe for exclusive drops and updates</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your email address" required>
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+          <div class="social-links">
+            <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+            <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Doomzy Ink. All rights reserved. Cursed in the USA.</p>
+        <div class="footer-legal">
+          <a href="/privacy-policy">Privacy Policy</a>
+          <span>•</span>
+          <a href="/terms-of-service">Terms of Service</a>
+          <span>•</span>
+          <a href="/refund-policy">Refund Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <a href="#" class="back-to-top" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
+  <!-- JavaScript -->
+  <script src="/assets/js/main.js"></script>
+  {% if page_script %}
+  <script src="{{ page_script }}"></script>
+  {% endif %}
+</body>
+</html>
