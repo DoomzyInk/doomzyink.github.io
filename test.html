@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doomzy Ink - Test</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    body {
+      font-family: 'Archivo', sans-serif;
+      background-color: #0a0a0a;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      color: #8a2be2;
+    }
+    .status {
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .success {
+      color: #4caf50;
+    }
+    .error {
+      color: #f44336;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #8a2be2;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin: 10px 0;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #6a1f9e;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Doomzy Ink - Test Page</h1>
+    
+    <div id="status" class="status">
+      <p>Testing configuration...</p>
+    </div>
+    
+    <div id="test-results"></div>
+    
+    <button id="test-printify" class="btn">Test Printify Connection</button>
+    <button id="test-snipcart" class="btn">Test Snipcart</button>
+    
+    <div>
+      <a href="/" class="btn">Back to Home</a>
+      <a href="/catalog/" class="btn">View Catalog</a>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const statusEl = document.getElementById('status');
+      const resultsEl = document.getElementById('test-results');
+      
+      // Test Printify connection
+      document.getElementById('test-printify').addEventListener('click', async function() {
+        statusEl.innerHTML = '<p>Testing Printify connection...</p>';
+        resultsEl.innerHTML = '';
+        
+        try {
+          const response = await fetch('/.netlify/functions/printify', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              path: '/shops',
+              method: 'GET'
+            })
+          });
+          
+          const data = await response.json();
+          
+          if (response.ok) {
+            statusEl.innerHTML = '<p class="success">✓ Successfully connected to Printify API</p>';
+            resultsEl.innerHTML = `
+              <div class="status">
+                <h3>Printify Shops:</h3>
+                <pre>${JSON.stringify(data, null, 2)}</pre>
+              </div>
+            `;
+          } else {
+            throw new Error(data.error || 'Failed to connect to Printify');
+          }
+        } catch (error) {
+          statusEl.innerHTML = `
+            <p class="error">✗ Error connecting to Printify:</p>
+            <p>${error.message}</p>
+            <p>Make sure you've set up your Printify API key in the .env file.</p>
+          `;
+          console.error('Printify test error:', error);
+        }
+      });
+      
+      // Test Snipcart
+      document.getElementById('test-snipcart').addEventListener('click', function() {
+        statusEl.innerHTML = '<p>Testing Snipcart...</p>';
+        resultsEl.innerHTML = '';
+        
+        if (window.Snipcart) {
+          statusEl.innerHTML = `
+            <p class="success">✓ Snipcart is loaded and ready to use!</p>
+            <p>API Key: ${window.SnipcartConfig.API_KEY}</p>
+          `;
+          
+          // Try to open the cart
+          window.Snipcart.api.cart.get().then(cart => {
+            resultsEl.innerHTML = `
+              <div class="status">
+                <h3>Cart Status:</h3>
+                <pre>${JSON.stringify(cart, null, 2)}</pre>
+              </div>
+            `;
+          }).catch(error => {
+            resultsEl.innerHTML = `
+              <div class="status">
+                <p class="error">Error accessing cart:</p>
+                <pre>${error.message}</pre>
+              </div>
+            `;
+          });
+        } else {
+          statusEl.innerHTML = `
+            <p class="error">✗ Snipcart is not loaded</p>
+            <p>Make sure you've included the Snipcart script and set your API key.</p>
+          `;
+        }
+      });
+      
+      // Initial status check
+      if (window.PrintifyConfig && window.SnipcartConfig) {
+        statusEl.innerHTML = `
+          <p>✓ Configuration loaded successfully</p>
+          <p>Printify Shop ID: ${window.PrintifyConfig.SHOP_ID}</p>
+          <p>Snipcart API Key: ${window.SnipcartConfig.API_KEY ? 'Set' : 'Not set'}</p>
+        `;
+      } else {
+        statusEl.innerHTML = `
+          <p class="error">✗ Configuration not loaded</p>
+          <p>Make sure config.js is properly set up.</p>
+        `;
+      }
+    });
+  </script>
+  
+  <!-- Snipcart Script -->
+  <script async src="https://cdn.snipcart.com/themes/v3.2.2/default/snipcart.js"></script>
+  <div hidden id="snipcart" data-api-key="YOUR_SNIPCART_API_KEY"></div>
+</body>
+</html>

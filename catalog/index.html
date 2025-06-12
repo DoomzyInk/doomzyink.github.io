@@ -6,12 +6,18 @@
   <title>Doomzy Ink - Shop</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/filters.css">
   <!-- Snipcart Integration -->
   <link rel="preconnect" href="https://app.snipcart.com">
   <link rel="preconnect" href="https://cdn.snipcart.com">
   <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.2.2/default/snipcart.css" />
   <script async src="https://cdn.snipcart.com/themes/v3.2.2/default/snipcart.js"></script>
   <div hidden id="snipcart" data-api-key="YOUR_SNIPCART_API_KEY" data-config-modal-style="side"></div>
+  
+  <!-- Custom JavaScript -->
+  <script src="js/products.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/cart.js"></script>
 </head>
 <body class="catalog-page">
   <!-- Header -->
@@ -66,6 +72,7 @@
     <aside class="catalog-sidebar">
       <div class="sidebar-header">
         <h2>Categories</h2>
+        <div class="product-count" id="product-count">0 products</div>
         <button class="sidebar-toggle" aria-label="Toggle sidebar">
           <i class="fas fa-chevron-left"></i>
         </button>
@@ -275,6 +282,30 @@
         });
       });
     }
+    
+    // Initialize product count
+    const updateProductCount = () => {
+      const productGrid = document.getElementById('product-grid');
+      if (productGrid) {
+        const productCount = productGrid.children.length;
+        const countElement = document.getElementById('product-count');
+        if (countElement) {
+          countElement.textContent = `${productCount} ${productCount === 1 ? 'product' : 'products'}`;
+        }
+      }
+    };
+    
+    // Initial update
+    updateProductCount();
+    
+    // Update when products are filtered
+    const observer = new MutationObserver(updateProductCount);
+    const productGrid = document.getElementById('product-grid');
+    if (productGrid) {
+      observer.observe(productGrid, { childList: true, subtree: true });
+    }
+    
+    // Mobile menu toggle is already initialized in cart.js
   </script>
 </body>
 </html>

@@ -1,18 +1,17 @@
 # Doomzy Ink
 
-A bold, occult-inspired e-commerce website for Doomzy Ink, featuring dark art and gothic designs.
+A bold, occult-inspired e-commerce website for Doomzy Ink, featuring dark art and gothic designs. This site integrates with Printify for print-on-demand products and Snipcart for e-commerce functionality.
 
 ## Features
 
-- Responsive design that works on all devices
-- Animated hero section with spiral background
-- Dynamic product grid loaded from JSON
-- Interactive audio player for the Hotline podcast
-- Flip card for Lore section
-- Newsletter subscription form
-- Modern CSS with CSS variables for easy theming
-- Smooth scrolling and animations
-- Mobile-friendly navigation
+- **Printify Integration**: Seamless connection to your Printify store
+- **Snipcart Checkout**: Secure and customizable checkout process
+- **Product Management**: Easy management of products, variants, and inventory
+- **Responsive Design**: Works on all devices
+- **Dynamic Product Grid**: Loaded from Printify API with fallback to local data
+- **Interactive Shopping Cart**: Real-time cart updates and quick view
+- **Modern UI/UX**: Dark theme with smooth animations
+- **SEO Optimized**: For better search engine visibility
 
 ## Project Structure
 
@@ -20,26 +19,116 @@ A bold, occult-inspired e-commerce website for Doomzy Ink, featuring dark art an
 doomzyink.github.io/
 ├── assets/
 │   ├── css/
-│   │   ├── style.css    # Base styles
-│   │   └── main.css     # Main styles with animations
+│   │   ├── style.css        # Base styles
+│   │   └── main.css         # Main styles with animations
+│   │   └── filters.css      # Product filter styles
 │   ├── js/
-│   │   └── main.js      # Main JavaScript functionality
-│   ├── images/          # Image assets
-│   └── fonts/           # Custom fonts
-├── data/
-│   └── products.json  # Product data
-├── index.html           # Main HTML file
-└── README.md            # This file
+│   │   ├── main.js          # Main application logic
+│   │   ├── products.js      # Product data and rendering
+│   │   ├── filters.js       # Product filtering and sorting
+│   │   ├── cart.js          # Shopping cart functionality
+│   │   ├── printify.js      # Printify API integration
+│   │   └── config.js        # Configuration settings
+│   ├── images/              # Image assets
+│   └── fonts/               # Custom fonts
+├── netlify/
+│   └── functions/         # Serverless functions
+│       └── printify.js       # Printify API proxy
+├── templates/
+│   └── snipcart.html      # Custom Snipcart template
+├── catalog/                 # Product catalog section
+├── index.html               # Main HTML file
+└── README.md                # This file
 ```
 
 ## Getting Started
 
+### Prerequisites
+
+- Node.js 18 or higher
+- Netlify account (for deployment)
+- Printify account
+- Snipcart account
+
+### Local Development
+
 1. Clone the repository:
-   ```
+   ```bash
    git clone https://github.com/DoomzyInk/doomzyink.github.io.git
+   cd doomzyink.github.io
    ```
 
-2. Open `index.html` in your browser to view the site locally.
+2. Install dependencies for Netlify Functions:
+   ```bash
+   cd netlify/functions
+   npm install
+   cd ../..
+   ```
+
+3. Create a `.env` file in the root directory with your API keys:
+   ```env
+   PRNTFY_API_KEY=your_printify_api_key
+   PRNTFY_SHOP_ID=your_printify_shop_id
+   ```
+
+4. Start the local development server:
+   ```bash
+   npx netlify dev
+   ```
+
+5. Open `http://localhost:8888` in your browser.
+
+## Deployment
+
+1. Push your code to GitHub
+2. Connect your repository to Netlify
+3. Add environment variables in Netlify:
+   - `PRNTFY_API_KEY`: Your Printify API key
+   - `PRNTFY_SHOP_ID`: Your Printify shop ID
+   - `SNIPCART_API_KEY`: Your Snipcart public API key
+
+## Configuration
+
+### Printify Setup
+1. Get your API key from the Printify dashboard
+2. Update the `PrintifyConfig` in `js/config.js`
+3. Make sure your Printify products are published to your store
+
+### Snipcart Setup
+1. Sign up for a Snipcart account
+2. Get your public API key
+3. Update the `SnipcartConfig` in `js/config.js`
+4. Configure your shipping and tax settings in the Snipcart dashboard
+
+## Customization
+
+### Adding Products
+1. Add products in your Printify dashboard
+2. Products will automatically sync with your store
+3. For local development, you can use the sample data in `js/products.js`
+
+### Styling
+Edit the CSS variables in `assets/css/main.css` to customize the theme:
+
+```css
+:root {
+  --primary: #8a2be2;
+  --primary-dark: #6a1f9e;
+  --bg-dark: #0a0a0a;
+  --text: #ffffff;
+  --text-muted: #999999;
+}
+```
+
+## Troubleshooting
+
+- **API errors**: Make sure your API keys are correct and have the right permissions
+- **CORS issues**: Ensure your Netlify function is properly configured
+- **Missing products**: Check if products are published in your Printify store
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Customization
 

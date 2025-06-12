@@ -1,0 +1,92 @@
+<!-- Custom Snipcart Template -->
+<div class="snipcart-layout" id="snipcart" data-config="{{config}}">
+  <!-- Header -->
+  <header class="snipcart-header">
+    <div class="snipcart-header__title">
+      <h1>Your Cart</h1>
+      <button class="snipcart-header__close-button" onclick="Snipcart.api.modal().close()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Empty State -->
+  <div class="snipcart-empty" v-if="cart.items.length === 0">
+    <div class="snipcart-empty__icon">
+      <i class="fas fa-shopping-cart"></i>
+    </div>
+    <h2>Your cart is empty</h2>
+    <p>Looks like you haven't added anything to your cart yet.</p>
+    <button class="snipcart-button-primary" onclick="Snipcart.api.modal().close()">
+      Continue Shopping
+    </button>
+  </div>
+
+  <!-- Cart Content -->
+  <div class="snipcart-content" v-else>
+    <!-- Items List -->
+    <div class="snipcart-items">
+      <div v-for="item in cart.items" :key="item.id" class="snipcart-item">
+        <div class="snipcart-item__image">
+          <img :src="item.image" :alt="item.name">
+        </div>
+        <div class="snipcart-item__details">
+          <h3 class="snipcart-item__title">{{ item.name }}</h3>
+          <div class="snipcart-item__price">
+            {{ item.price | money }}
+            <span class="snipcart-item__quantity">x {{ item.quantity }}</span>
+          </div>
+          <div class="snipcart-item__custom-fields" v-if="item.customFields">
+            <div v-for="field in item.customFields" :key="field.name">
+              <strong>{{ field.name }}:</strong> {{ field.value }}
+            </div>
+          </div>
+        </div>
+        <div class="snipcart-item__actions">
+          <div class="snipcart-item__quantity">
+            <button class="snipcart-button-icon" @click="decrementItem(item)">
+              <i class="fas fa-minus"></i>
+            </button>
+            <span class="snipcart-item__quantity-text">{{ item.quantity }}</span>
+            <button class="snipcart-button-icon" @click="incrementItem(item)">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+          <button class="snipcart-button-link" @click="removeItem(item)">
+            <i class="fas fa-trash"></i> Remove
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="snipcart-summary">
+      <div class="snipcart-summary-line">
+        <span>Subtotal</span>
+        <span>{{ cart.subtotal | money }}</span>
+      </div>
+      <div class="snipcart-summary-line" v-if="cart.taxTotal > 0">
+        <span>Tax</span>
+        <span>{{ cart.taxTotal | money }}</span>
+      </div>
+      <div class="snipcart-summary-line" v-if="cart.shippingRate > 0">
+        <span>Shipping</span>
+        <span>{{ cart.shippingRate | money }}</span>
+      </div>
+      <div class="snipcart-summary-line snipcart-summary-total">
+        <span>Total</span>
+        <span>{{ cart.total | money }}</span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="snipcart-actions">
+      <button class="snipcart-button-secondary" @click="Snipcart.api.modal().close()">
+        Continue Shopping
+      </button>
+      <button class="snipcart-button-primary" @click="Snipcart.api.checkout()">
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>
+</div>
